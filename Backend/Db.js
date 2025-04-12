@@ -1,10 +1,11 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const dbServerUrl = `mongodb+srv://${process.env.DB_EMAIL}:${process.env.DB_PASSWORD}@voting-database.hpwadsm.mongodb.net/`;
-
+const liveServerUrl = `mongodb+srv://${process.env.DB_EMAIL}:${process.env.DB_PASSWORD}@scrapping.66hnucn.mongodb.net/?retryWrites=true&w=majority&appName=Scrapping`;
+const dbServerUrl = process.env.LOCAL_DB_SERVER_URL;
 const db = mongoose.connection;
 
-mongoose.connect(dbServerUrl);
+
+mongoose.connect(liveServerUrl);
 
 db.on("connected", () => {
   console.log("connected to database");

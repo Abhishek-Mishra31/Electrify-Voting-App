@@ -1,6 +1,9 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import voteContext from "../Context/vote/Votecontext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Navbar";
 
 const AdminLogin = () => {
@@ -8,6 +11,7 @@ const AdminLogin = () => {
     aadharnumber: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const context = useContext(voteContext);
   const { adminLogin } = context;
 
@@ -15,12 +19,35 @@ const AdminLogin = () => {
 
   const handleAdminLogin = async (e) => {
     e.preventDefault();
-    const result = await adminLogin(Adetails.aadharnumber, Adetails.password);
-    if (result.success) {
-      localStorage.setItem("token", result.token);
-      navigate("/admin");
-    } else {
-      alert("you have no admin role or invalid credentials");
+    setLoading(true);
+    try {
+      const result = await adminLogin(Adetails.aadharnumber, Adetails.password);
+      if (result.success) {
+        localStorage.setItem("token", result.token);
+        toast.success("Successfully authenticated...", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        navigate("/admin");
+      } else {
+        toast.error(
+          "Check your credentials , admin authentication failed....",
+          {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "dark",
+          }
+        );
+      }
+    } catch (error) {
+      toast.error("Something went wrong , try again later", {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "dark",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,6 +112,16 @@ const AdminLogin = () => {
                 >
                   Log In
                 </button>
+                {loading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <ClipLoader size={20} color="#ffffff" />
+                    <span className="text-white">
+                      Logging in as administrator......
+                    </span>
+                  </div>
+                ) : (
+                  ""
+                )}
               </form>
             </div>
           </div>

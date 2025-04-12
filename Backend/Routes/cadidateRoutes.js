@@ -3,7 +3,6 @@ const User = require("../Models/user");
 const express = require("express");
 const router = express.Router();
 
-
 const {
   jwtMiddleware,
   generateToken,
@@ -139,6 +138,7 @@ router.delete("/delete/:candidateId", async (req, res) => {
 // route for voting
 router.post("/vote/:candidateId", jwtMiddleware, async (req, res) => {
   try {
+    let success = false;
     const candidateId = req.params.candidateId; // extract the candidateId
     const userId = req.user.id; // extract the userId
 
@@ -150,10 +150,15 @@ router.post("/vote/:candidateId", jwtMiddleware, async (req, res) => {
     if (!user) return res.status(404).json({ error: "User Not Found" });
     // admin is prohabited for voting
     if (user.role == "admin")
-      return res.status(401).json("Admin Not Allowed For Voting");
+      return res
+        .status(401)
+        .json({ success: success, data: "Admin are not allowed to vote!" });
 
     // one user can give one time votes
-    if (user.isVoted) return res.status(404).json("You are already voted");
+    if (user.isVoted)
+      return res
+        .status(404)
+        .json({ success: success, data: "You are already voted" });
 
     // Update the Candidate document to record the vote
     candidate.votes.push({ user: userId });
@@ -163,8 +168,8 @@ router.post("/vote/:candidateId", jwtMiddleware, async (req, res) => {
     // Update the User document
     user.isVoted = true;
     await user.save();
-
-    res.status(200).json("Successfully Voted");
+    success = true;
+    res.status(200).json({ success: success, data: "Successfully voted.." });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Down" });

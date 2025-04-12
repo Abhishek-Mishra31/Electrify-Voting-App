@@ -83,10 +83,7 @@ const Usercomponent = () => {
                     <span className="font-semibold">Name : </span>
                     {Users.name}
                   </p>
-                  <p className="mb-2">
-                    <span className="font-semibold">Age : </span>
-                    {Users.age}
-                  </p>
+                 
                   <p className="mb-2">
                     <span className="font-semibold">Email : </span>
                     {Users.email}
@@ -95,10 +92,7 @@ const Usercomponent = () => {
                     <span className="font-semibold">Phone : </span>
                     {Users.phone}
                   </p>
-                  <p className="mb-2">
-                    <span className="font-semibold">Address : </span>
-                    {Users.address}
-                  </p>
+                
                   <p className="mb-2">
                     <span className="font-semibold">AadharNumber : </span>
                     {Users.aadharnumber}

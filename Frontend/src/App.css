@@ -3,9 +3,7 @@
 
 .App {
   text-align: center;
-  background-image: url(../public/voting_bg.avif);
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(to bottom, #6a1b9a, #2c3e50, #000000);
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;

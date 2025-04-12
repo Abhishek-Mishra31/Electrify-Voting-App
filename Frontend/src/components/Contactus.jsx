@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
 import voteContext from "../Context/vote/Votecontext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Navbar";
 
 const Contactus = () => {
@@ -19,9 +21,17 @@ const Contactus = () => {
       credentials.message
     );
     if (result.success) {
-      alert("Thanks for contacting ! ");
+      toast.success("Thanks for your feedback.", {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "dark",
+      });
     } else {
-      alert("there is a problem with it ");
+      toast.error("kindly try again...", {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "dark",
+      });
     }
     SetCrendentials({ name: "", email: "", message: "" });
   };
@@ -64,15 +74,12 @@ const Contactus = () => {
                 <h2 className="title-font font-semibold text-white tracking-widest text-xs">
                   EMAIL
                 </h2>
-                <a className="text-indigo-500 leading-relaxed" href="/">
-                  abhishekbelaganj0609@gmail.com
+                <a
+                  className="text-indigo-500 leading-relaxed  hover:underline"
+                  href="mailto:abhishek.kumar.devx@gmail.com"
+                >
+                  abhishek.kumar.devx@gmail.com
                 </a>
-                <h2 className="title-font font-semibold text-white tracking-widest text-xs mt-4">
-                  PHONE
-                </h2>
-                <p className="leading-relaxed text-indigo-500">
-                  +91 8294746282
-                </p>
               </div>
             </div>
           </div>

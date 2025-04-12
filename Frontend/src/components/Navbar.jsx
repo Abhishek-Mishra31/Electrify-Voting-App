@@ -17,7 +17,8 @@ const Navbar = (props) => {
               className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
               viewBox="0 0 24 24"
             >
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+              <path d="M20 6H9l-2 2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2z" />
+              <path d="M10 12l2 2 4-4" />
             </svg>
             <span className="ml-3 text-xl text-white">Electrify</span>
           </h3>
@@ -45,4 +46,3 @@ const Navbar = (props) => {
 };
 
 export default Navbar;
-

@@ -23,6 +23,7 @@ app.use((req, res, next) => {
 const allowedOrigins = [
   "https://electrify-voting-app-z06u.onrender.com",
   "https://electrify-voting-app-1.onrender.com",
+  "http://localhost:3000",
 ];
 
 app.use(
@@ -38,6 +39,8 @@ app.use(
     credentials: true, // Allow cookies
   })
 );
+
+app.options("*", cors());
 
 // Error handling middleware
 app.use((err, req, res, next) => {

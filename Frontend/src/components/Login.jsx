@@ -1,6 +1,10 @@
 import React, { useContext, useState } from "react";
+import { ClipLoader } from "react-spinners";
 import { Link, useNavigate } from "react-router-dom";
 import voteContext from "../Context/vote/Votecontext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Navbar from "./Navbar";
 
 const Login = () => {
@@ -9,17 +13,38 @@ const Login = () => {
   const context = useContext(voteContext);
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const { userLogin } = context;
+  const [loading, setLoading] = useState(false);
 
   // method for User Login
   const handleLogin = async (e) => {
     e.preventDefault();
-    const result = await userLogin(Info.aadharnumber, Info.password);
-    if (result.success) {
-      localStorage.setItem("token", result.token);
-      setisLoggedIn(true);
-      navigate("/user");
-    } else {
-      alert("Invalid Aadhar-Number or Password");
+    try {
+      setLoading(true);
+      const result = await userLogin(Info.aadharnumber, Info.password);
+      if (result.success) {
+        localStorage.setItem("token", result.token);
+        setisLoggedIn(true);
+        toast.success("Login successful!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        navigate("/user");
+      } else {
+        toast.error("Invalid Aadhar-Number or Password", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+      }
+    } catch (err) {
+      toast.error("Something went wrong, please try again later.", {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "colored",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,7 +96,7 @@ const Login = () => {
                     id="aadharnumber"
                     value={Info.aadharnumber}
                     onChange={handleChange}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-black placeholder-gray-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Aadhar-Number"
                     required={true}
                   />
@@ -84,7 +109,7 @@ const Login = () => {
                     value={Info.password}
                     placeholder="Password"
                     onChange={handleChange}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-black placeholder-gray-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required={true}
                   />
 
@@ -108,6 +133,17 @@ const Login = () => {
                 >
                   Sign in
                 </button>
+
+                {loading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <ClipLoader size={20} color="#ffffff" />
+                    <span className="text-white">
+                      Hang tight, we’re logging you in...
+                    </span>
+                  </div>
+                ) : (
+                  ""
+                )}
                 <p className="text-xl font-extrabold text-white">
                   Don’t have an account yet?
                   <Link

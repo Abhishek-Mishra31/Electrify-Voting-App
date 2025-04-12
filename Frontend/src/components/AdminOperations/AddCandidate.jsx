@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
 import voteContext from "../../Context/vote/Votecontext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddCandidate = () => {
   const [details, Setdetails] = useState({
@@ -26,11 +28,25 @@ const AddCandidate = () => {
         details.party
       );
       if (result.success) {
-        alert("Candidates added Successfully");
+        toast.success("Candidate added successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+        });
+      } else {
+        toast.error("There is problem with enrollment!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+        });
       }
       Setdetails({ name: "", age: "", imageurl: "", party: "" });
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong!", {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "dark",
+      });
     }
   };
 

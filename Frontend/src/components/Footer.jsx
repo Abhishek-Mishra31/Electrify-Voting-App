@@ -17,18 +17,19 @@ const Footer = () => {
               className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
               viewBox="0 0 24 24"
             >
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+              <path d="M20 6H9l-2 2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2z" />
+              <path d="M10 12l2 2 4-4" />
             </svg>
             <span className="ml-3 text-xl text-white">Electrify</span>
           </h2>
           <p className="text-sm text-white sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
-            © 2020
+            © 2023
             <span className="text-white ml-1">@ all righs reserved</span>
           </p>
           <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
             <Link
               className="ml-3 text-white"
-              to={"https://x.com/Abhishe09449303"}
+              to={"https://x.com/_AsyncBytes_"}
               target="_blank"
             >
               <svg

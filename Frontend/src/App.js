@@ -1,7 +1,6 @@
 import "./App.css";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
-import Navbar from "./components/Navbar";
 import Signup from "./components/Signup";
 import Usercomponent from "./components/Usercomponent";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -11,6 +10,8 @@ import About from "./components/About";
 import AdminLogin from "./components/AdminLogin";
 import AdminLayout from "./components/AdminLayout";
 import Votestate from "./Context/vote/Votestate";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route exact path="/AdminLogin" element={<AdminLogin />} />
               <Route exact path="/admin/*" element={<AdminLayout />} />
             </Routes>
+            <ToastContainer />
             <Footer />
           </Router>
         </Votestate>

@@ -1,21 +1,22 @@
 import React, { useCallback, useState } from "react";
 import VoteContext from "./Votecontext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Votestate = (props) => {
   const candidate = [];
   const vote = [];
   const user = [];
   const admin = [];
-  const host = process.env.REACT_APP_API_URL;
+  const host = process.env.REACT_APP_API_URL; // this is production host url
+  const localHost = "http://localhost:5001"; // this is local host url
 
   // user SignUp
   const userSignUp = async (
     name,
-    age,
     email,
-    phone,
-    address,
     aadharnumber,
+    phone,
     password,
     role
   ) => {
@@ -27,11 +28,9 @@ const Votestate = (props) => {
       },
       body: JSON.stringify({
         name,
-        age,
         email,
-        phone,
-        address,
         aadharnumber,
+        phone,
         password,
         role,
       }),
@@ -72,20 +71,36 @@ const Votestate = (props) => {
   // update user's password
   const updatePassword = async (currentpass, newpass) => {
     const updateUrl = `${host}/user/update`;
-    const token = localStorage.getItem("token");
-    const response = await fetch(updateUrl, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ currentpass, newpass }),
-    });
-    const result = await response.json();
-    if (result.success === true) {
-      alert("Successfully Password Changed");
-    } else {
-      alert("there is a problem with Backend server");
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(updateUrl, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ currentpass, newpass }),
+      });
+      const result = await response.json();
+      if (result.success === true) {
+        toast.success("Successfully Password Changed!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+        });
+      } else {
+        toast.error("There is problem with Server , Kindly try again!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+        });
+      }
+    } catch (error) {
+      toast.error("Something wrong with Server!", {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "dark",
+      });
     }
   };
 
@@ -133,6 +148,7 @@ const Votestate = (props) => {
   // update the candidate
   const editCandidates = async (name, age, party, candidateId) => {
     const updateUrl = `${host}/candidate/update/${candidateId}`;
+    // eslint-disable-next-line
     const response = await fetch(updateUrl, {
       method: "PUT",
       headers: {
@@ -167,6 +183,7 @@ const Votestate = (props) => {
         "Content-type": "application/json",
       },
     });
+    // eslint-disable-next-line
     const result = await response.json();
     const newCandidate = candidates.filter((data) => {
       return data._id !== candidateId;
@@ -201,7 +218,20 @@ const Votestate = (props) => {
       },
     });
     const result = await response.json();
-    alert(result);
+
+    if (result.success) {
+      toast.success(result.data, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "dark",
+      });
+    } else {
+      toast.error(result.data, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "dark",
+      });
+    }
   };
 
   // get election result
