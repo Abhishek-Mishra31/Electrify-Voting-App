@@ -32,8 +32,9 @@ router.post("/login", async (req, res) => {
     let success = false;
     const { aadharnumber, password } = req.body;
     // find the user by its aadharnumber
-    const user = await User.findOne({ aadharnumber: aadharnumber });
+    const user = await User.findOne({ aadharnumber });
     // if user is not available or entered password is not match by user's password -- return error
+
     if (!user || !(await user.comparePassword(password))) {
       return res.status(401).json({ error: "Incorrect Username or Password" });
     }

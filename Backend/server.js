@@ -40,7 +40,6 @@ app.use(
   })
 );
 
-app.options("*", cors());
 
 // Error handling middleware
 app.use((err, req, res, next) => {

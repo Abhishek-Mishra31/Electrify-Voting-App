@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   },
 
   aadharnumber: {
-    type: Number,
+    type: String,
     required: true,
   },
 
