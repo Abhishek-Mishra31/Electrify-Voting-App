@@ -25,12 +25,12 @@ const Dashboard = () => {
               {admins?.name}
             </h5>
             <p className="mb-2 text-black">
-              <span className="font-semibold">email : </span>
-              {admins?.email}
+              <span className="font-semibold">Phone : </span>
+              {admins?.phone}
             </p>
             <p className="mb-2 text-black">
-              <span className="font-semibold">address : </span>
-              {admins?.address}
+              <span className="font-semibold">email : </span>
+              {admins?.email}
             </p>
             <p className="mb-2 text-black">
               <span className="font-semibold">Role : </span>

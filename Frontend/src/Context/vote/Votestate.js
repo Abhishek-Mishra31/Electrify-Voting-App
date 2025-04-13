@@ -221,7 +221,7 @@ const Votestate = (props) => {
 
     if (result.success) {
       toast.success(result.data, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 3000,
         theme: "dark",
       });

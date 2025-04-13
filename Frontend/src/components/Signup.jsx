@@ -11,6 +11,7 @@ const Signup = () => {
   const context = useContext(voteContext);
   const { userSignUp } = context;
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [details, setDetails] = useState({
     name: "",
     email: "",
@@ -22,6 +23,15 @@ const Signup = () => {
   // this method is resposible for signUp
   const HandleSignup = async (e) => {
     e.preventDefault();
+    if (details.aadharnumber.length !== 12) {
+      setError("Aadhaar number must be exactly 12 digits.");
+      return;
+    }
+    if (details.phone.length !== 10) {
+      setError("Phone number must be exactly 10 digits.");
+      return;
+    }
+    setError("");
     setLoading(true);
     try {
       const result = await userSignUp(
@@ -120,12 +130,6 @@ const Signup = () => {
                   required
                   placeholder="Aadhar-Number"
                 />
-                {details.aadharnumber.length > 0 &&
-                  details.aadharnumber.length !== 12 && (
-                    <p className="text-red-500 text-sm mt-1">
-                      Aadhaar number must be exactly 12 digits
-                    </p>
-                  )}
               </div>
 
               <div className="mb-3">
@@ -145,12 +149,6 @@ const Signup = () => {
                   required
                   placeholder="phone"
                 />
-                {details.phone.length > 0 &&
-                  details.phone.length !== 10 && (
-                    <p className="text-red-500 text-sm mt-1">
-                      Phone number must be exactly 10 digits
-                    </p>
-                  )}
               </div>
 
               <div className="mb-3 relative ">
@@ -179,6 +177,7 @@ const Signup = () => {
                   ></i>
                 </div>
               </div>
+              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
               <button
                 type="submit"

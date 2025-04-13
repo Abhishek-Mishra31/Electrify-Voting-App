@@ -13,11 +13,19 @@ const Login = () => {
   const context = useContext(voteContext);
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const { userLogin } = context;
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   // method for User Login
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (Info.aadharnumber.length !== 12) {
+      setError("Aadhaar number must be exactly 12 digits.");
+      return;
+    }
+
+    // Clear error and submit the form
+    setError("");
     try {
       setLoading(true);
       const result = await userLogin(Info.aadharnumber, Info.password);
@@ -105,12 +113,6 @@ const Login = () => {
                     placeholder="Aadhar-Number"
                     required={true}
                   />
-                  {Info.aadharnumber.length > 0 &&
-                    Info.aadharnumber.length !== 12 && (
-                      <p className="text-red-500 text-sm mt-1">
-                        Aadhaar number must be exactly 12 digits
-                      </p>
-                    )}
                 </div>
                 <div className="relative">
                   <input
@@ -138,6 +140,7 @@ const Login = () => {
                     ></i>
                   </div>
                 </div>
+                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
                 <button
                   type="submit"
                   className="text-white bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  hover:bg-blue-500 dark:focus:ring-primary-800 border-2"

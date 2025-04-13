@@ -169,7 +169,7 @@ router.post("/vote/:candidateId", jwtMiddleware, async (req, res) => {
     user.isVoted = true;
     await user.save();
     success = true;
-    res.status(200).json({ success: success, data: "Successfully voted.." });
+    res.status(200).json({ success: success, data: "Successfully Voted- You can log-out" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Down" });

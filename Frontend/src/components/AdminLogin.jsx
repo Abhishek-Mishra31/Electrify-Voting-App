@@ -12,6 +12,7 @@ const AdminLogin = () => {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const context = useContext(voteContext);
   const { adminLogin } = context;
 
@@ -19,6 +20,13 @@ const AdminLogin = () => {
 
   const handleAdminLogin = async (e) => {
     e.preventDefault();
+    if (Adetails.aadharnumber.length !== 12) {
+      setError("Aadhaar number must be exactly 12 digits.");
+      return;
+    }
+
+    // Clear error and submit the form
+    setError("");
     setLoading(true);
     try {
       const result = await adminLogin(Adetails.aadharnumber, Adetails.password);
@@ -75,7 +83,12 @@ const AdminLogin = () => {
                     name="aadharnumber"
                     id="aadharnumber"
                     value={Adetails.aadharnumber}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (/^\d{0,12}$/.test(value)) {
+                        handleChange(e);
+                      }
+                    }}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Aadhar-Number"
                     required={true}
@@ -106,6 +119,7 @@ const AdminLogin = () => {
                     ></i>
                   </div>
                 </div>
+                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
                 <button
                   type="submit"
                   className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 border-2 bg-gray-600 hover:bg-blue-600"
