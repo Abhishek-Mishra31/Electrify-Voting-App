@@ -24,10 +24,6 @@ const Dashboard = () => {
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
               {admins?.name}
             </h5>
-            <p className="mb-2 my-8 text-black">
-              <span className="font-semibold">Age : </span>
-              {admins?.age}
-            </p>
             <p className="mb-2 text-black">
               <span className="font-semibold">email : </span>
               {admins?.email}

@@ -95,11 +95,22 @@ const Login = () => {
                     name="aadharnumber"
                     id="aadharnumber"
                     value={Info.aadharnumber}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (/^\d{0,12}$/.test(value)) {
+                        handleChange(e);
+                      }
+                    }}
                     className="bg-gray-50 border border-gray-300 text-black placeholder-gray-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Aadhar-Number"
                     required={true}
                   />
+                  {Info.aadharnumber.length > 0 &&
+                    Info.aadharnumber.length !== 12 && (
+                      <p className="text-red-500 text-sm mt-1">
+                        Aadhaar number must be exactly 12 digits
+                      </p>
+                    )}
                 </div>
                 <div className="relative">
                   <input

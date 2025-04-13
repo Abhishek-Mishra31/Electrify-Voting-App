@@ -108,25 +108,49 @@ const Signup = () => {
                   type="text"
                   id="aadharnumber"
                   value={details.aadharnumber}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^\d{0,12}$/.test(value)) {
+                      handleChange(e);
+                    }
+                  }}
                   name="aadharnumber"
+                  maxLength={12}
                   className="bg-gray-50 border border-gray-300 text-black placeholder-gray-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
                   placeholder="Aadhar-Number"
                 />
+                {details.aadharnumber.length > 0 &&
+                  details.aadharnumber.length !== 12 && (
+                    <p className="text-red-500 text-sm mt-1">
+                      Aadhaar number must be exactly 12 digits
+                    </p>
+                  )}
               </div>
 
               <div className="mb-3">
                 <input
-                  type="type"
+                  type="number"
                   id="phone"
                   name="phone"
                   value={details.phone}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^\d{0,10}$/.test(value)) {
+                      handleChange(e);
+                    }
+                  }}
+                  maxLength={10}
                   className="bg-gray-50 border border-gray-300 text-black placeholder-gray-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
                   placeholder="phone"
                 />
+                {details.phone.length > 0 &&
+                  details.phone.length !== 10 && (
+                    <p className="text-red-500 text-sm mt-1">
+                      Phone number must be exactly 10 digits
+                    </p>
+                  )}
               </div>
 
               <div className="mb-3 relative ">

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
 import voteContext from "../Context/vote/Votecontext";
 
 const Usercomponent = () => {
@@ -40,8 +39,7 @@ const Usercomponent = () => {
 
   return (
     <>
-      <Navbar />
-      <section className=" userComponent body-font text-gray-600 h-[70vh]">
+      <section className="p-14 userComponent body-font text-gray-600 h-[90vh]">
         <div className="mx-auto lg:w-4/6">
           <div className="mt-10 flex flex-col sm:flex-row">
             <div className="text-center sm:w-1/3 sm:py-8 sm:pr-8">
